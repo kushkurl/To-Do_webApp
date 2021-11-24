@@ -7,12 +7,14 @@
 @model MyToDoList.Models.ToDos
 
 
+
+
     <section>
         <div class="todos">
             <div class="row">
                             
                     <div class="todo-details">
-                    <span class="span-title" onclick="EditTask()">@Model.Title</span>
+                    <span class="span-title" onclick="EditTask(this)">@Model.Title</span>
                     
             </div>
             

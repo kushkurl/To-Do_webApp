@@ -8,7 +8,15 @@
     <script>
     function Showhide() {
         $("#newFrom").toggle();
-    }
+        }
+
+        function EditTask(e) {
+            $('#' + e.innerText + '').show();
+        }
+
+        function CloseForm() {
+            $('form').hide();
+        }
 
     </script>
 }
@@ -26,14 +34,9 @@
                     <h1 class="logo-title">
                         <span>My ToDo List</span>
                     </h1>
-
                 </div>
-
             </div>
-
         </header>
-
-
 
         <div>
             <div class="app-body-main-content">
@@ -54,7 +57,7 @@
                 </div>
                 <div class="card" id="newFrom" style="display:none">
                     <section>
-                        <partial name="_newToDo" model="@Model.addeditTask" />
+                        <partial name="_newToDo" model="@Model.addTask" />
                     </section>
                     
 
@@ -78,8 +81,14 @@
 
                     @foreach (Models.ToDos toDo in Model.ToDos)
                     {
+                    <div>
                         <partial name="_ToDoList" model="toDo" />
-                        <partial name="_editToDo" model="@Model.addeditTask" />
+                    </div>
+
+                        <div style="display:none" id="@toDo.Title">
+                            <partial name="_editToDo" model="toDo" />
+                        </div>
+
                     }
                 </section>
 

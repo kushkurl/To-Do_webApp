@@ -6,7 +6,7 @@
 
 @model MyToDoList.Models.ToDos
 
-<form method="post">
+<form method="post" class="card">
     <div class="row" style="margin:0px">
         <div class="col-sm" style="display:inline-grid;padding:10px">
             <label asp-for="@Model.Title"></label>
@@ -25,14 +25,14 @@
 
     </div>
 
-    <p>
-        <input type="checkbox" id="test2" checked="checked" />
-        <label for="test2">Yellow</label>
-    </p>
+   
 
-    <div style="display:block">
-        <input style="position: relative; left: 90%; background-color: black; font-size: 1rem" type="submit" value="Update" class="save-button" />
-
+    <div style="display:inline-flex">
+        <input style="background-color: black;margin-left:9px; font-size: .9rem" type="submit" value="Update" onclick="CloseForm();" class="save-button" />
+        <div style="margin-left:12px">
+            <input asp-for="@Model.IsCompleted" id="test2" type="checkbox" checked="checked" />
+            <label for="test2">Mark Complete</label>
+        </div>
     </div>
 </form>
 

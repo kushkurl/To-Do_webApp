@@ -12,21 +12,27 @@ namespace MyToDoList.Pages
     {
         
         [FromForm]
-        public Models.ToDos addeditTask { get; set; }
-
-        public List<Models.ToDos> ToDos;
+        public Models.ToDos addTask { get; set; }
         
+        //public Models.ToDos editTask { get; set; }
+        [FromForm]
+        public List<Models.ToDos> ToDos { get; set; }
+        
+        public List<Models.ToDos> ToDoList = new List<Models.ToDos>();
+
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
         {
+            
             _logger = logger;
-            ToDos = new List<Models.ToDos>();
-            ToDos.Add(new Models.ToDos() { Title = "test1", Description = "This is test 1", DueDate = new DateTime(2021, 12, 30), IsCompleted = false });
-            ToDos.Add(new Models.ToDos() { Title = "test2", Description = "This is test 2", DueDate = new DateTime(2021, 12, 2), IsCompleted = true });
+            //ToDos = new List<Models.ToDos>();
+            ToDoList.Add(new Models.ToDos() { Title = "test1", Description = "This is test 1", DueDate = new DateTime(2021, 12, 30), IsCompleted = false });
+            ToDos = ToDoList;
+            /*ToDos.Add(new Models.ToDos() { Title = "test2", Description = "This is test 2", DueDate = new DateTime(2021, 12, 2), IsCompleted = true });
             ToDos.Add(new Models.ToDos() { Title = "test3", Description = "This is test 3", DueDate = new DateTime(2021, 12, 10), IsCompleted = false });
             ToDos.Add(new Models.ToDos() { Title = "test4", Description = "This is test 4", DueDate = new DateTime(2021, 11, 30), IsCompleted = true });
-            ToDos.Add(new Models.ToDos() { Title = "test5", Description = "This is test 5", DueDate = new DateTime(2021, 11, 28), IsCompleted = false });
+            ToDos.Add(new Models.ToDos() { Title = "test5", Description = "This is test 5", DueDate = new DateTime(2021, 11, 28), IsCompleted = false });*/
         }
 
         public IActionResult OnPost()
@@ -37,7 +43,9 @@ namespace MyToDoList.Pages
             }
             else
             {
-                ToDos.Add(addeditTask);
+                ToDos = ToDoList;
+                ToDos.Add(addTask);
+                ToDoList = ToDos;
                 return null;
             }
             
