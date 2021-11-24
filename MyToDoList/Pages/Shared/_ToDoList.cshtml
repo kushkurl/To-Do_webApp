@@ -12,7 +12,7 @@
             <div class="row">
                             
                     <div class="todo-details">
-                    <dt>@Model.Title</dt>
+                    <span class="span-title" onclick="EditTask()">@Model.Title</span>
                     
             </div>
             
@@ -20,7 +20,7 @@
                 <dt>@Model.DueDate</dt>
                 
             </div>
-            </dl>
+            
             <div class="todo-number">
                 @if (@Model.IsCompleted)
                 {
@@ -33,6 +33,7 @@
 
             </div>
         </div>
+            </div>
     </section>
 
 

@@ -10,7 +10,9 @@ namespace MyToDoList.Pages
 {
     public class IndexModel : PageModel
     {
-        public Models.ToDos addTask = new Models.ToDos();
+        
+        [FromForm]
+        public Models.ToDos addeditTask { get; set; }
 
         public List<Models.ToDos> ToDos;
         
@@ -20,16 +22,25 @@ namespace MyToDoList.Pages
         {
             _logger = logger;
             ToDos = new List<Models.ToDos>();
-            ToDos.Add(new Models.ToDos() { Title = "test1", IsCompleted = false });
-            ToDos.Add(new Models.ToDos() { Title = "test2", IsCompleted = true });
-            ToDos.Add(new Models.ToDos() { Title = "test3", IsCompleted = false });
-            ToDos.Add(new Models.ToDos() { Title = "test4", IsCompleted = true });
-            ToDos.Add(new Models.ToDos() { Title = "test5", IsCompleted = false });
+            ToDos.Add(new Models.ToDos() { Title = "test1", Description = "This is test 1", DueDate = new DateTime(2021, 12, 30), IsCompleted = false });
+            ToDos.Add(new Models.ToDos() { Title = "test2", Description = "This is test 2", DueDate = new DateTime(2021, 12, 2), IsCompleted = true });
+            ToDos.Add(new Models.ToDos() { Title = "test3", Description = "This is test 3", DueDate = new DateTime(2021, 12, 10), IsCompleted = false });
+            ToDos.Add(new Models.ToDos() { Title = "test4", Description = "This is test 4", DueDate = new DateTime(2021, 11, 30), IsCompleted = true });
+            ToDos.Add(new Models.ToDos() { Title = "test5", Description = "This is test 5", DueDate = new DateTime(2021, 11, 28), IsCompleted = false });
         }
 
-        public void OnGet()
+        public IActionResult OnPost()
         {
-
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+            else
+            {
+                ToDos.Add(addeditTask);
+                return null;
+            }
+            
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MyToDoList.Models
         [Required]
         public string Title { get; set; }
         public bool IsCompleted { get; set; }
-
+        
         public DateTime CompletedOn { get; set; }
 
         [Required]
