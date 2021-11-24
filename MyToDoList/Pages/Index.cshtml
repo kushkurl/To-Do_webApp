@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <section class="todo-section">
-
+                    @if(!(Model.ToDos == null)) { 
                     @foreach (Models.ToDos toDo in Model.ToDos)
                     {
                     <div>
@@ -89,6 +89,7 @@
                             <partial name="_editToDo" model="toDo" />
                         </div>
 
+                    }
                     }
                 </section>
 
