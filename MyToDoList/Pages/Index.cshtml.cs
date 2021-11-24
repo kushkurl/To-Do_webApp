@@ -10,7 +10,10 @@ namespace MyToDoList.Pages
 {
     public class IndexModel : PageModel
     {
+        public Models.ToDos addTask = new Models.ToDos();
+
         public List<Models.ToDos> ToDos;
+        
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)

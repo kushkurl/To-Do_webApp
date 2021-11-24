@@ -23,6 +23,9 @@
         </div>
 
     </header>
+
+
+
     <div>
         <div class="app-body-main-content">
             <div style="display:inline-flex; margin-block:20px">
@@ -33,12 +36,42 @@
                             <option>Title</option>
                             <option>Due Date</option>
                         </select>
-                        
+
                     </div>
-                    
                 </div>
-                
             </div>
+            <div style="display: inline-flex;float: right;padding: 1%;">
+                <button class="save-button">Add Task</button>
+            </div>
+            <div class="card">
+                <form method="post">
+                    <div class="row" style="margin:0px">
+                        <div class="col-sm" style="display:inline-grid;padding:10px">
+                            <label asp-for="addTask.Title"></label>
+                            <input style="min-height:30px; min-width:300px;border-radius:5px;font-size:1rem" asp-for="addTask.Title" />
+                            <span asp-validation-for="addTask.Title"></span>
+                        </div>
+                        <div class="col-sm" style="display: inline-grid; padding: 10px">
+                            <label asp-for="addTask.DueDate"></label>
+                            <input style="min-height: 30px; min-width: 300px; border-radius: 5px; font-size: 1rem" type="date" asp-for="addTask.DueDate" />
+                            <span asp-validation-for="addTask.DueDate"></span>
+                        </div>
+                    </div>
+                    <div style="display: inline-grid; padding: 10px; width:100%">
+                        <label asp-for="addTask.Description"></label>
+                        <textarea style="min-height: 105px; min-width: 625px; border-radius: 5px; font-size: 1rem" type="text" asp-for="addTask.Description" ></textarea>
+
+                    </div>
+
+
+                    <div style="display:block">
+                        <input style="position: relative; left: 90%; background-color: black; font-size: 1rem" type="submit" value="Add" class="save-button" />
+
+                    </div>
+                </form>
+
+            </div>
+            
             <div class="app-header-navigation">
                 <div class="tabs">
                     <span>
@@ -60,9 +93,9 @@
                     <partial name="_ToDoList" model="toDo" />
                 }
 
-                
+
         </div>
- 
+
     </div>
 </div>
 
