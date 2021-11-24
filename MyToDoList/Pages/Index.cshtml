@@ -4,7 +4,66 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="app">
+    <header class="app-header">
+        <div class="app-header-logo">
+            <div style="float:right">
+                <button class="user-profile">
+                    <span>Anonymous User</span>
+
+                </button>
+            </div>
+            <div class="logo">
+                <h1 class="logo-title">
+                    <span>My ToDo List</span>
+                </h1>
+
+            </div>
+
+        </div>
+
+    </header>
+    <div>
+        <div class="app-body-main-content">
+            <div style="display:inline-flex; margin-block:20px">
+                <h5>Sort by: </h5>
+                <div>
+                    <div class="dropdown-field">
+                        <select style="border-radius:5px;">
+                            <option>Title</option>
+                            <option>Due Date</option>
+                        </select>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <div class="app-header-navigation">
+                <div class="tabs">
+                    <span>
+                        Title
+                    </span>
+                    <span>
+                        Due Date
+                    </span>
+
+                    <span>
+                        Is Completed
+                    </span>
+                </div>
+            </div>
+            <section class="todo-section">
+
+                @foreach (Models.ToDos toDo in Model.ToDos)
+                {
+                    <partial name="_ToDoList" model="toDo" />
+                }
+
+                
+        </div>
+ 
+    </div>
 </div>
+
+

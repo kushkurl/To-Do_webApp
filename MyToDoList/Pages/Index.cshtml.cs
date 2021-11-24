@@ -10,11 +10,18 @@ namespace MyToDoList.Pages
 {
     public class IndexModel : PageModel
     {
+        public List<Models.ToDos> ToDos;
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
+            ToDos = new List<Models.ToDos>();
+            ToDos.Add(new Models.ToDos() { Title = "test1", IsCompleted = false });
+            ToDos.Add(new Models.ToDos() { Title = "test2", IsCompleted = true });
+            ToDos.Add(new Models.ToDos() { Title = "test3", IsCompleted = false });
+            ToDos.Add(new Models.ToDos() { Title = "test4", IsCompleted = true });
+            ToDos.Add(new Models.ToDos() { Title = "test5", IsCompleted = false });
         }
 
         public void OnGet()
