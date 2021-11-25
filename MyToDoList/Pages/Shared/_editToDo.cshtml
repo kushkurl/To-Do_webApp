@@ -6,7 +6,11 @@
 
 @model MyToDoList.Models.ToDos
 
-<form method="post" class="card">
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form asp-action="Edit" method="post" class="card">
     <div class="row" style="margin:0px">
         <div class="col-sm" style="display:inline-grid;padding:10px">
             <label asp-for="@Model.Title"></label>
@@ -15,7 +19,7 @@
         </div>
         <div class="col-sm" style="display: inline-grid; padding: 10px">
             <label asp-for="@Model.DueDate"></label>
-            <input style="min-height: 30px; min-width: 300px; border-radius: 5px; font-size: 1rem" type="date" asp-for="@Model.DueDate" />
+            <input value="" style="min-height: 30px; min-width: 300px; border-radius: 5px; font-size: 1rem" type="date" asp-for="@Model.DueDate" />
 
         </div>
     </div>
@@ -25,12 +29,24 @@
 
     </div>
 
-   
-
     <div style="display:inline-flex">
-        <input style="background-color: black;margin-left:9px; font-size: .9rem" type="submit" value="Update" onclick="CloseForm();" class="save-button" />
+        
+        <input style="background-color: black;margin-left:9px; font-size: .9rem" type="submit" value="Delete" asp-page-handler="Delete" asp-route-id="@Model.Title" onclick="CloseForm();" class="save-button">
+        <input style="background-color: black;margin-left:9px; font-size: .9rem" type="submit" value="Cancel" asp-page-handler="Cancel" onclick="CloseForm();" class="save-button">
+        <input style="background-color: black;margin-left:9px; font-size: .9rem" type="submit" asp-page-handler="Update" asp-route-id="@Model.Title" value="Update" onclick="CloseForm();" class="save-button" />
         <div style="margin-left:12px">
-            <input asp-for="@Model.IsCompleted" id="test2" type="checkbox" checked="checked" />
+            @*
+                user not allowed to uncheck todo task once completed     
+            *@
+            @if (@Model.IsCompleted)
+            {
+                <input asp-for="@Model.IsCompleted" id="test2" type="checkbox" checked="checked" disabled />
+            }
+            else
+            {
+                <input asp-for="@Model.IsCompleted" id="test2" type="checkbox" />
+            }
+
             <label for="test2">Mark Complete</label>
         </div>
     </div>

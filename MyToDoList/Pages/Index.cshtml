@@ -6,14 +6,19 @@
 
 @section Scripts {
     <script>
+        // toggel show hide add new todo div on 'Add Task' button click
     function Showhide() {
         $("#newFrom").toggle();
         }
 
+        // show edit todo item div on click of title in a row on home page view
         function EditTask(e) {
-            $('#' + e.innerText + '').show();
+            console.log("edit task show hide div." + e);
+            console.log(e);
+            $('#' + e + '').show();
         }
 
+        //close all the edit or new form div on the page
         function CloseForm() {
             $('form').hide();
         }
@@ -71,7 +76,9 @@
                         <span>
                             Due Date
                         </span>
-
+                        <span>
+                            Completed On
+                        </span>
                         <span>
                             Is Completed
                         </span>
@@ -85,7 +92,7 @@
                         <partial name="_ToDoList" model="toDo" />
                     </div>
 
-                        <div style="display:none" id="@toDo.Title">
+                        <div style="display:none" id="@toDo.ToDoID">
                             <partial name="_editToDo" model="toDo" />
                         </div>
 

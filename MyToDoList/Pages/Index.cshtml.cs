@@ -17,11 +17,9 @@ namespace MyToDoList.Pages
 
         private EFContext db = new EFContext();
         
-        //public Models.ToDos editTask { get; set; }
         
         public List<Models.ToDos> ToDos { get; set; }
         
-        //public List<Models.ToDos> ToDoList = new List<Models.ToDos>();
 
         private readonly ILogger<IndexModel> _logger;
 
@@ -29,20 +27,14 @@ namespace MyToDoList.Pages
         {
             
             _logger = logger;
-            //ToDos = new List<Models.ToDos>();
-            //ToDoList.Add(new Models.ToDos() { Title = "test1", Description = "This is test 1", DueDate = new DateTime(2021, 12, 30), IsCompleted = false });
-            //ToDos = ToDoList;
-            /*ToDos.Add(new Models.ToDos() { Title = "test2", Description = "This is test 2", DueDate = new DateTime(2021, 12, 2), IsCompleted = true });
-            ToDos.Add(new Models.ToDos() { Title = "test3", Description = "This is test 3", DueDate = new DateTime(2021, 12, 10), IsCompleted = false });
-            ToDos.Add(new Models.ToDos() { Title = "test4", Description = "This is test 4", DueDate = new DateTime(2021, 11, 30), IsCompleted = true });
-            ToDos.Add(new Models.ToDos() { Title = "test5", Description = "This is test 5", DueDate = new DateTime(2021, 11, 28), IsCompleted = false });*/
         }
 
+        // default method to get all todo items from database
         public void OnGet()
         {
             ToDos = db.ToDos.ToList();
         }
-
+        // default OnPost method to create new record
         public void OnPost()
         {
             if (!ModelState.IsValid)
@@ -51,11 +43,71 @@ namespace MyToDoList.Pages
             }
             else
             {
-                db.ToDos.Add(addTask);
-                db.SaveChanges();
-                //ToDos.Add(addTask);
+                //add try catch because title is primary key updating or adding may throw error for already
+                // existing record with same title 
+                try
+                {
+                    db.ToDos.Add(addTask);
+                    db.SaveChanges();
+                    ToDos = db.ToDos.ToList();
+                }
+                catch(Exception e) { Console.WriteLine(e.Message); }
+                
             }
             
+        }
+
+        //custom OnPost item to delete record from list and database
+        public ActionResult OnPostDelete(string? title)
+        {
+            if (title != null)
+            {
+                //search record by title which is primary key
+                var data = (from todo in db.ToDos
+                            where todo.Title == title
+                            select todo).SingleOrDefault();
+
+                db.Remove(data);
+                db.SaveChanges();
+            }
+            return RedirectToPage("index");
+        }
+        //custom OnPost method to update item
+        public ActionResult OnPostUpdate(string? title)
+        {
+            
+            if (title != null)
+            { 
+                var data = (from todo in db.ToDos
+                            where todo.Title == title
+                            select todo).SingleOrDefault();
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                if(data.IsCompleted != addTask.IsCompleted)
+                {
+                    addTask.CompletedOn = DateTime.Now;
+                }
+
+                //add try catch because title is primary key updating or adding may throw error for already
+                // existing record with same title 
+                try
+                {
+                    db.Remove(data);
+                    db.Add(addTask);
+                    db.SaveChanges();
+                }
+                catch (Exception e) { Console.WriteLine(e.Message); }
+
+            }
+            return RedirectToPage("index");
+        }
+
+        // this method will run on Cancel operation to refresh/redirect page
+        public ActionResult OnPostCancel()
+        {
+            return RedirectToPage("index");
         }
     }
 }
